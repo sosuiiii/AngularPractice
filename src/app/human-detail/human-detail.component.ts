@@ -31,5 +31,9 @@ export class HumanDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+  save(): void {
+    this.humanService.updateHuman(this.human)
+    .subscribe(() => this.goBack());
+  }
 
 }

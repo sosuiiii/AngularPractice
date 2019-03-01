@@ -11,6 +11,15 @@ import { HumanService } from '../human.service';
 })
 export class HumansComponent implements OnInit {
   humans: Human[];
+
+  add(name: string): void {
+    name = name.trim();
+    if(!name) { return; }
+    this.humanService.addHuman({ name } as Human)
+    .subscribe(human => {
+      this.humans.push(human);
+    });
+  }
   
   getHumans(): void {
     this.humanService.getHumans()
@@ -20,6 +29,10 @@ export class HumansComponent implements OnInit {
 
   ngOnInit() {
     this.getHumans();
+  }
+  delete(human: Human): void {
+    this.humans = this.humans.filter(h => h !== human);
+    this.humanService.deleteHuman(human).subscribe();
   }
 
 }
